@@ -36,6 +36,20 @@ public class TestCasesSauceDemo {
     String lastName = "Nurlita";
     String postalCode = "12345";
 
+    //Before method: Login before do tests that required user credentials
+    @BeforeMethod(onlyForGroups = {"loginRequired"})
+    public void ensureLoggedIn() {
+        driver.get(urlBase);
+        LoginPage loginPage = new LoginPage(driver);
+
+        if (!driver.getCurrentUrl().equals(urlHomePage)) {
+            loginPage.enterUsername(username);
+            loginPage.enterPassword(password);
+            loginPage.clickLogin();
+            Assert.assertEquals(driver.getCurrentUrl(), urlHomePage); //Ensure login was successful
+        }
+    }
+
     @BeforeClass
     public void setup(){
         //initiate the driver setup
@@ -44,14 +58,33 @@ public class TestCasesSauceDemo {
         driver.get(urlBase);
     }
 
-    @Test
+    @Test(groups = {"noLoginRequired"})
+    public void LoginTestSuccess(){
+        driver.get(urlBase);
+
+        //create pages object
+        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
+
+        //call action methods
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        loginPage.clickLogin();
+
+        //assertions
+        Assert.assertEquals(homePage.getCurrentUrl(), urlHomePage); //assert by url
+        Assert.assertEquals(homePage.getTitleText(), titleHome); //assert by text
+        homePage.getCartElement(); //assert by element
+    }
+
+    @Test(groups = {"noLoginRequired"})
     public void LoginTestFailed(){
         driver.get(urlBase);
 
-        //create pages object which needed in Login Test
+        //create pages object
         LoginPage loginPage = new LoginPage(driver);
 
-        //call action method with certain parameter or test data
+        //call action methods
         loginPage.enterUsername(username);
         loginPage.enterPassword(wrongPass);
         loginPage.clickLogin();
@@ -61,31 +94,12 @@ public class TestCasesSauceDemo {
         loginPage.verifyErrorMessage(); //assert by element
     }
 
-    @Test
-    public void LoginTestSuccess(){
-        driver.get(urlBase);
-
-        //create pages object which needed in Login Test
-        LoginPage loginPage = new LoginPage(driver);
-        HomePage homePage = new HomePage(driver);
-
-        //call action method with certain parameter or test data
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLogin();
-
-        //assertions
-        Assert.assertEquals(homePage.getCurrentUrl(), urlHomePage); //assert by url
-        Assert.assertEquals(homePage.getTitleText(), titleHome); //assert by text
-        homePage.getCartElement(); //assert by element
-    }
-
-    @Test
+    @Test(groups = {"loginRequired"})
     public void SortHighToLow(){
-        //create pages object which needed in Login Test
+        //create pages object
         HomePage homePage = new HomePage(driver);
 
-        //action click to choose sort method
+        //call action methods
         homePage.chooseSorting();
 
         //assertions
@@ -93,25 +107,17 @@ public class TestCasesSauceDemo {
         Assert.assertEquals(homePage.getSortOption(), highLowSort); //assert by text of option chosen
     }
 
-    @Test
+    @Test(groups = {"loginRequired"})
     public void Checkout(){
-        //create pages object which needed in Login Test
-        LoginPage loginPage = new LoginPage(driver);
+
+        //create pages object
         HomePage homePage = new HomePage(driver);
         CartPage cartPage = new CartPage(driver);
         CheckoutStepOne checkoutStepOne = new CheckoutStepOne(driver);
         CheckoutStepTwo checkoutStepTwo = new CheckoutStepTwo(driver);
         CheckoutComplete checkoutComplete = new CheckoutComplete(driver);
 
-        //Scenario 0: action to user Login in LOGIN PAGE
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
-        loginPage.clickLogin();
-
-        //assertion 0: verify login in HOME PAGE
-        Assert.assertEquals(homePage.getCurrentUrl(), urlHomePage); //assert by url
-        Assert.assertEquals(homePage.getTitleText(), titleHome); //assert by text
-        homePage.getCartElement(); //assert by element
+        //call action methods and assertions
 
         //Scenario 1: add item to cart in HOME PAGE
         homePage.clickAddCartBackpack();
