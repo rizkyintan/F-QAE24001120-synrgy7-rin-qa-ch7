@@ -52,7 +52,7 @@ This test case verifies the checkout process for a product.
 Through these test scripts, the main objectives are:
 
 1. **Understanding Selenium Basics**: Learn how to set up Selenium WebDriver and create basic test scripts.
-2. **Writing Effective Test Cases**: Develop skills in writing comprehensive test cases that cover various scenarios.
+2. **Implementing Page Object Model**: Gain proficiency in structuring automation projects using POM for better code organization.
 3. **Automating User Actions**: Gain proficiency in automating common user actions like login, navigation, sorting, and checkout.
 4. **Verifying UI Elements**: Learn techniques to verify UI elements and their states using Selenium.
 
