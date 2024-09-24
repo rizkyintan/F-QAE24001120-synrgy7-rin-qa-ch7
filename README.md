@@ -1,5 +1,5 @@
 # Welcome to my Quality Assurance Learning Repository! 🚀 
-### Chapter 7: UI Automation Testing with Selenium WebDriver 👆🏻💻
+### Chapter 7: Web UI Automation Testing with Selenium WebDriver 👆🏻💻
 
 Hi folks! I am currently learning Software Quality Assurance at SYNRGY Batch 7. This repository serves as a dedicated space for storing code and resources related to my quality assurance learning and development journey. This repository is specifically designed to provide a comprehensive overview of Chapter 7, focusing on UI automation testing with Selenium WebDriver. In this repository, I created test scripts for one of the testing web https://www.saucedemo.com/ which focusing on 4 test cases:
 
@@ -68,5 +68,3 @@ To get started with running the test scripts in this repository, follow these st
 1. **Clone the repository**: git clone [repository](https://github.com/rizkyintan/F-QAE24001120-synrgy7-rin-qa-ch7.git)
 2. **Install dependencies**: Ensure you have Java and Selenium WebDriver set up on your machine.
 3. **Run the test scripts**: Use your preferred IDE or command line to execute the test cases.
-
-By exploring these test scripts, you will gain practical experience in UI automation testing with Selenium. Happy testing! 🧪
